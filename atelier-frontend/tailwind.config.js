@@ -1,0 +1,117 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{ts,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        // Stitch design tokens (Material You-style naming)
+        background: '#fbf9f3',
+        surface: '#fbf9f3',
+        'surface-bright': '#fbf9f3',
+        'surface-dim': '#dcdad4',
+        'surface-variant': '#e4e2dd',
+        'surface-container-lowest': '#ffffff',
+        'surface-container-low': '#f5f3ed',
+        'surface-container': '#f0eee8',
+        'surface-container-high': '#eae8e2',
+        'surface-container-highest': '#e4e2dd',
+        'surface-tint': '#5f5e5e',
+
+        primary: '#000000',
+        'on-primary': '#ffffff',
+        'primary-container': '#1c1b1b',
+        'on-primary-container': '#858383',
+        'primary-fixed': '#e5e2e1',
+        'primary-fixed-dim': '#c8c6c5',
+        'on-primary-fixed': '#1c1b1b',
+        'on-primary-fixed-variant': '#474746',
+        'inverse-primary': '#c8c6c5',
+
+        secondary: '#765a26',
+        'on-secondary': '#ffffff',
+        'secondary-container': '#fed798',
+        'on-secondary-container': '#785c29',
+        'secondary-fixed': '#ffdea9',
+        'secondary-fixed-dim': '#e6c184',
+        'on-secondary-fixed': '#271900',
+        'on-secondary-fixed-variant': '#5c4211',
+
+        tertiary: '#000000',
+        'on-tertiary': '#ffffff',
+        'tertiary-container': '#201b11',
+        'on-tertiary-container': '#8b8375',
+        'tertiary-fixed': '#ebe1d1',
+        'tertiary-fixed-dim': '#cfc5b6',
+        'on-tertiary-fixed': '#201b11',
+        'on-tertiary-fixed-variant': '#4c463a',
+
+        outline: '#747878',
+        'outline-variant': '#c4c7c7',
+
+        error: '#ba1a1a',
+        'on-error': '#ffffff',
+        'error-container': '#ffdad6',
+        'on-error-container': '#93000a',
+
+        'on-background': '#1b1c18',
+        'on-surface': '#1b1c18',
+        'on-surface-variant': '#444748',
+        'inverse-surface': '#30312d',
+        'inverse-on-surface': '#f3f1eb',
+      },
+      borderRadius: {
+        DEFAULT: '0.25rem',
+        lg: '0.5rem',
+        xl: '0.75rem',
+        full: '9999px',
+      },
+      spacing: {
+        gutter: '24px',
+        'container-max': '1440px',
+        'margin-mobile': '20px',
+        'margin-desktop': '64px',
+        unit: '4px',
+      },
+      fontFamily: {
+        'label-sm': ['Geist', 'system-ui', 'sans-serif'],
+        'body-md': ['Geist', 'system-ui', 'sans-serif'],
+        'body-lg': ['Geist', 'system-ui', 'sans-serif'],
+        'mono-code': ['"Geist Mono"', 'ui-monospace', 'monospace'],
+        'headline-md': ['"Playfair Display"', 'Georgia', 'serif'],
+        'headline-lg': ['"Playfair Display"', 'Georgia', 'serif'],
+        'display-xl': ['"Playfair Display"', 'Georgia', 'serif'],
+        'headline-lg-mobile': ['"Playfair Display"', 'Georgia', 'serif'],
+      },
+      fontSize: {
+        'label-sm': ['12px', { lineHeight: '1.2', letterSpacing: '0.05em', fontWeight: '500' }],
+        'body-md': ['15px', { lineHeight: '1.5', fontWeight: '400' }],
+        'body-lg': ['18px', { lineHeight: '1.6', fontWeight: '400' }],
+        'mono-code': ['13px', { lineHeight: '1.4', fontWeight: '400' }],
+        'headline-md': ['32px', { lineHeight: '1.3', fontWeight: '400' }],
+        'headline-lg': ['48px', { lineHeight: '1.2', fontWeight: '400' }],
+        'display-xl': ['72px', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '400' }],
+        'headline-lg-mobile': ['32px', { lineHeight: '1.2', fontWeight: '400' }],
+      },
+      animation: {
+        'pulse-gold': 'pulse-gold 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'shutter-reveal': 'shutter-reveal 700ms cubic-bezier(0.65, 0, 0.35, 1) forwards',
+        'edge-glow': 'edge-glow 2.5s ease-in-out infinite',
+      },
+      keyframes: {
+        'pulse-gold': {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '.5', transform: 'scale(1.2)' },
+        },
+        'shutter-reveal': {
+          '0%': { clipPath: 'inset(0 100% 0 0)' },
+          '100%': { clipPath: 'inset(0 0 0 0)' },
+        },
+        'edge-glow': {
+          '0%, 100%': { filter: 'drop-shadow(0 0 4px rgba(254,215,152,0.4))' },
+          '50%': { filter: 'drop-shadow(0 0 12px rgba(254,215,152,0.8))' },
+        },
+      },
+    },
+  },
+  plugins: [],
+};

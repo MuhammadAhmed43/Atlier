@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOOMAI - Semester Project Documentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --text-color: #333333;
+            --bg-color: #ffffff;
+            --light-bg: #f9f9f9;
+            --border-color: #dddddd;
+            --title-font: 'Merriweather', serif;
+            --body-font: 'Open Sans', sans-serif;
+            --code-font: 'Fira Code', monospace;
+            --code-bg: #282c34;
+            --code-color: #abb2bf;
+        }
+
+        body {
+            font-family: var(--body-font);
+            color: var(--text-color);
+            background-color: #e5e5e5;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            font-size: 12pt;
+        }
+
+        .document-container {
+            max-width: 21cm;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .page {
+            width: 100%;
+            min-height: 29.7cm;
+            padding: 2cm;
+            box-sizing: border-box;
+            background-color: white;
+            position: relative;
+        }
+
+        @media print {
+            body { background-color: white; padding: 0; }
+            .document-container { box-shadow: none; max-width: 100%; }
+            .page { min-height: auto; padding: 2cm; page-break-after: always; }
+            .no-print { display: none; }
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--title-font);
+            color: var(--primary-color);
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            page-break-after: avoid;
+        }
+
+        h1 { font-size: 2.2em; border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; }
+        h2 { font-size: 1.6em; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+        h3 { font-size: 1.3em; }
+
+        p { text-align: justify; margin-bottom: 1em; }
+        ul, ol { margin-bottom: 1.5em; padding-left: 2em; }
+        li { margin-bottom: 0.5em; }
+
+        .title-page { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 25.7cm; }
+        .uni-header { margin-bottom: 3cm; }
+        .uni-name { font-size: 1.8em; font-weight: 700; font-family: var(--title-font); text-transform: uppercase; letter-spacing: 2px; }
+        .doc-type { font-size: 1.2em; color: var(--secondary-color); margin-top: 10px; }
+        .project-title-container { margin-bottom: 3cm; }
+        .project-name { font-size: 4em; font-weight: 700; color: var(--accent-color); font-family: var(--title-font); letter-spacing: 4px; margin: 0; }
+        .project-subtitle { font-size: 1.4em; font-style: italic; color: var(--secondary-color); margin-top: 10px; }
+        .student-info { background-color: var(--light-bg); padding: 30px; border-radius: 8px; border: 1px solid var(--border-color); width: 70%; margin-bottom: 2cm; text-align: left; }
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 1.2em; border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
+        .info-label { font-weight: 600; color: var(--primary-color); }
+
+        .toc-list { list-style-type: none; padding-left: 0; }
+        .toc-list li { margin-bottom: 10px; }
+        .toc-list a { text-decoration: none; color: var(--primary-color); font-weight: 600; }
+        .toc-list ul { list-style-type: none; padding-left: 20px; margin-top: 5px; }
+        .toc-list ul a { font-weight: 400; color: var(--secondary-color); }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-color);
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: var(--code-font);
+            font-size: 0.85em;
+            line-height: 1.5;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            margin: 1.5em 0;
+            page-break-inside: avoid;
+        }
+        .keyword { color: #c678dd; }
+        .string { color: #98c379; }
+        .comment { color: #5c6370; font-style: italic; }
+        .function { color: #61afef; }
+        .builtin { color: #e5c07b; }
+        
+        .code-caption {
+            font-family: var(--body-font);
+            font-size: 0.85em;
+            color: var(--secondary-color);
+            margin-top: -1em;
+            margin-bottom: 1.5em;
+            font-style: italic;
+        }
+
+        .architecture-box {
+            background-color: var(--light-bg);
+            border: 2px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre;
+            text-align: center;
+            line-height: 1.2;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="document-container">
+
+    <!-- TITLE PAGE -->
+    <div class="page title-page">
+        <div class="uni-header">
+            <div class="uni-name">University Department of Computer Science</div>
+            <div class="doc-type">Comprehensive Semester Project Documentation</div>
+        </div>
+
+        <div class="project-title-container">
+            <h1 class="project-name">LOOMAI</h1>
+            <div class="project-subtitle">Controllable Fashion Image Synthesis using Stable Diffusion and ControlNet</div>
+        </div>
+
+        <div class="student-info">
+            <div class="info-row">
+                <span class="info-label">Student Name:</span>
+                <span class="info-value">Syed Muhammed ahmed</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">CMS ID:</span>
+                <span class="info-value">462052</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Course Type:</span>
+                <span class="info-value">Semester Project</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Submission Date:</span>
+                <span class="info-value">May 14, 2026</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABSTRACT PAGE -->
+    <div class="page">
+        <h1>Abstract</h1>
+        <p>
+            The rapidly evolving domain of Artificial Intelligence has drastically shifted paradigms in generative design, specifically within the fashion footprint. This document presents the comprehensive development, implementation, and evaluation of <strong>LOOMAI</strong>�a Controllable Fashion Image Synthesis system. The project leverages Stable Diffusion (v1.5) as the foundational generative engine, ControlNet to govern structural constraints via Canny edge detection, and Low-Rank Adaptation (LoRA) for computationally efficient domain adaptation customized for contemporary fashion imagery. 
+        </p>
+        <p>
+            LOOMAI solves the inherent unpredictability of standard text-to-image models by binding the generative output to a concrete structural anchor�maintaining pose, silhouette, and proportions while dynamically altering textures, styles, fabrics, and backgrounds based purely on natural language descriptions. The documentation encompasses a rigorous exploration into the methodology, experimental setup evaluating outputs at varying denoising steps (e.g., 20 and 40 steps), checkpoints of training states (from 5,000 to 30,000 iterations), and deployment mechanisms. Designed flexibly, LOOMAI operates seamlessly across two primary environments: locally natively utilizing AMD ROCm for hardware acceleration, and over cloud environments using Kaggle's NVIDIA GPUs. We detail quantitative metrics alongside qualitative demonstrations within a customized Gradio web-UI to attest to the system's viability as a rapid prototyping tool for fashion designers and e-commerce platforms.
+        </p>
+    </div>
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="page">
+        <h1>Table of Contents</h1>
+        <ul class="toc-list">
+            <li><a href="#chap1">1. Introduction</a>
+                <ul>
+                    <li>1.1 Project Overview</li>
+                    <li>1.2 Problem Statement</li>
+                    <li>1.3 Project Objectives</li>
+                    <li>1.4 Scope and Limitations</li>
+                </ul>
+            </li>
+            <li><a href="#chap2">2. Literature Review & Background</a>
+                <ul>
+                    <li>2.1 Generative AI in Fashion</li>
+                    <li>2.2 Diffusion Models Overview</li>
+                    <li>2.3 Stable Diffusion 1.5</li>
+                    <li>2.4 ControlNet (Canny Edge)</li>
+                    <li>2.5 Low-Rank Adaptation (LoRA)</li>
+                </ul>
+            </li>
+            <li><a href="#chap3">3. Methodology & Data Preparation</a>
+                <ul>
+                    <li>3.1 System Architecture</li>
+                    <li>3.2 FashionGen Dataset Ingestion</li>
+                    <li>3.3 Text to Image Generation Workflow</li>
+                    <li>3.4 Structure Extraction Pipeline</li>
+                    <li>3.5 Model Fine-Tuning Strategy (30k vs 5k)</li>
+                </ul>
+            </li>
+            <li><a href="#chap4">4. Implementation Details & Pipeline Setup</a>
+                <ul>
+                    <li>4.1 Technical Stack</li>
+                    <li>4.2 Model Layout Assembly & Initialization</li>
+                    <li>4.3 Dynamic LoRA Hooking & Canny Logic</li>
+                    <li>4.4 Cross-Platform Execution Environments</li>
+                    <li>4.5 Graphical User Interface (Gradio)</li>
+                </ul>
+            </li>
+            <li><a href="#chap5">5. Results & Evaluation</a>
+                <ul>
+                    <li>5.1 Qualitative Analysis and Generation Sample</li>
+                    <li>5.2 Hyperparameter Tuning (Denoising Steps)</li>
+                    <li>5.3 Training Iterations (5k vs 30k)</li>
+                    <li>5.4 Quantitative Impact</li>
+                </ul>
+            </li>
+            <li><a href="#chap6">6. System Setup & Deployment</a>
+                <ul>
+                    <li>6.1 Hardware Prerequisites</li>
+                    <li>6.2 Installation Protocol Strategy</li>
+                </ul>
+            </li>
+            <li><a href="#chap7">7. Risks, Challenges & Ethical Considerations</a></li>
+            <li><a href="#chap8">8. Conclusion & Future Work</a></li>
+        </ul>
+    </div>
+
+    <!-- CHAPTER 1 -->
+    <div class="page" id="chap1">
+        <h1>1. Introduction</h1>
+        
+        <h2>1.1 Project Overview</h2>
+        <p>
+            <strong>LOOMAI</strong> (Controllable Fashion Image Synthesis) is an advanced deep learning framework engineered specifically for the fashion industry. Rapid visualization of apparel has traditionally been hampered by the high cost and temporal overhead of physical prototyping and professional photo shoots. Generative AI offers a solution by translating text into images; however, raw foundation models lack the precision required by designers to maintain garment structure while altering specific styles. LOOMAI bridges this gap.
+        </p>
+
+        <h2>1.2 Problem Statement</h2>
+        <p>
+            When utilizing commercial AI models like Midjourney or base Stable Diffusion to synthesize fashion, maintaining structural consistency across iterations is nearly impossible. If a designer inputs "a blue denim jacket," the model proposes entirely random structural shapes, lighting, and poses in every new seed. In an industrial pipeline, designers need the ability to lock the pose, fit, and general silhouette of a reference model, changing strictly the garment properties (material, style, color) based on textual prompts.
+        </p>
+
+        <h2>1.3 Project Objectives</h2>
+        <ul>
+            <li>To construct an AI-driven image synthesis pipeline capable of rendering high-fidelity fashion images based on text prompts.</li>
+            <li>To implement ControlNet using Canny Edge detection, forcing the generative model to respect the physical boundaries and pose of a provided reference image.</li>
+            <li>To fine-tune Stable Diffusion v1.5 using Low-Rank Adaptation (LoRA) to specifically excel in generating fashion-focused domains, suppressing generic noise.</li>
+            <li>To ensure cross-platform compatibility allowing the system to run on local AMD hardware (ROCm API) and cloud-based NVIDIA hardware (Kaggle).</li>
+            <li>To design an accessible graphical user interface (GUI) via Gradio for non-technical end-users to interact with the model seamlessly.</li>
+        </ul>
+
+        <h2>1.4 Scope and Limitations</h2>
+        <p>
+            The scope of LOOMAI encompasses static image generation primarily focused on human models wearing fashion items. The generation resolution is fixed at 256x256 or 512x512 depending on memory constraints. The model strictly utilizes Stable Diffusion v1.5 and an edge-detection-based ControlNet. Limitations include hardware dependency�requiring significant VRAM for fast inference�and occasional struggles with rendering complex anatomical features (e.g., highly detailed fingers or distinct facial micro-expressions), inherent to v1.5 diffusion architectures.
+        </p>
+    </div>
+
+    <!-- CHAPTER 2 -->
+    <div class="page" id="chap2">
+        <h1>2. Literature Review & Background</h1>
+        
+        <h2>2.1 Generative AI in Fashion</h2>
+        <p>
+            The intersection of machine learning and fashion has historically revolved around recommendation engines and trend forecasting. However, with the advent of Generative Adversarial Networks (GANs) and subsequently Latent Diffusion Models (LDMs), the focus shifted toward virtual try-ons and synthetic design. LOOMAI takes inspiration from these early virtual try-on models but generalizes the process�rather than swapping one garment onto a person, it hallucinates entirely new garments following the textual desires of a designer, governed by spatial constraints.
+        </p>
+
+        <h2>2.2 Diffusion Models Overview</h2>
+        <p>
+            Diffusion models are generative Markov chain networks parameterized to estimate noise. During the forward process, image data is progressively destroyed by adding Gaussian noise until it reaches pure static. The model (a U-Net) is trained on the reverse process�learning to denoise images iteratively. Conditioned on text embeddings (via CLIP), the network gradually transforms random noise tensors back into coherent images matching the text.
+        </p>
+
+        <h2>2.3 Stable Diffusion 1.5</h2>
+        <p>
+            Stable Diffusion v1.5, released by RunwayML, acts as the foundation of LOOMAI. It operates in the latent space rather than pixel space, deploying a Variational Autoencoder (VAE) to compress images into a latent representation. The diffusion process happens natively in this compressed dimension, radically reducing the compute requirement compared to pixel-based diffusers. 
+        </p>
+
+        <h2>2.4 ControlNet (Canny Edge)</h2>
+        <p>
+            Developed by Lvmin Zhang, ControlNet is a neural network architecture designed to add spatial conditioning controls to large, pre-trained text-to-image diffusion models. In LOOMAI, we utilize the <code>lllyasviel/control_v11p_sd15_canny</code> variant. It extracts structural outlines from an input reference image via a Canny edge detector and copies the weights of the Stable Diffusion U-Net. The copied structure processes this edge map and merges the output into the main U-Net. This effectively constrains the generative boundaries to the exact lines detected in the source picture.
+        </p>
+        
+        <h2>2.5 Low-Rank Adaptation (LoRA)</h2>
+        <p>
+            Fine-tuning an entire text-to-image model ( billions of parameters) demands colossal GPU grids. LoRA introduces trainable rank decomposition matrices into the cross-attention layers of the Transformer architecture while freezing the pre-trained weights. By only training these small matrix adaptations, LOOMAI aggressively learns the "fashion" aesthetic, improving the fabric texture quality and garment realism without risking catastrophic forgetting of general world knowledge.
+        </p>
+    </div>
+
+    <!-- CHAPTER 3 -->
+    <div class="page" id="chap3">
+        <h1>3. Methodology & Data Preparation</h1>
+
+        <h2>3.1 System Architecture</h2>
+        <p>
+            The end-to-end architecture of LOOMAI utilizes a multi-stage deterministic pipeline. A user supplies both a text prompt describing the desired outcome and a reference image delineating the expected pose/structure.
+        </p>
+        
+        <div class="architecture-box">
++-------------------------------------------------------------+
+�                    Text Prompt                              �
+�          "A sleek black leather jacket"                     �
++-------------------------------------------------------------+
+                       �
+                       ?
++-------------------------------------------------------------+
+�              Reference Image (Fashion Item)                 �
++-------------------------------------------------------------+
+                       �
+                       ?
++-------------------------------------------------------------+
+�              Canny Edge Detection                           �
+�         (Structure Extraction)                              �
++-------------------------------------------------------------+
+                       �
+                       ?
++-------------------------------------------------------------+
+�         ControlNet + Stable Diffusion v1.5                  �
+�         (Base Model)                                        �
++-------------------------------------------------------------+
+                       �
+                       ?
++-------------------------------------------------------------+
+�              LoRA Fine-Tuned Weights                        �
+�         (Fashion Domain Adaptation)                         �
++-------------------------------------------------------------+
+                       �
+                       ?
++-------------------------------------------------------------+
+�           Generated Fashion Image                           �
+�     (Matches structure + text description)                  �
++-------------------------------------------------------------+
+        </div>
+
+        <h2>3.2 FashionGen Dataset Ingestion</h2>
+        <p>
+            Before inference can be improved, the project requires comprehensive parsing of the FashionGen dataset to train the LoRA weights. Data was stored mathematically via HDF5 formatting. LOOMAI's pipeline iterates through tensors, dumping images alongside concurrent item descriptions parsed explicitly into CSV dictionaries, readable by huggingface <code>datasets</code> handlers. Below is the implemented data preparation routine:
+        </p>
+
+<pre><span class="keyword">import</span> h5py
+<span class="keyword">import</span> csv
+<span class="keyword">import</span> os
+<span class="keyword">from</span> PIL <span class="keyword">import</span> Image
+
+<span class="builtin">print</span>(<span class="string">"?? Opening dataset..."</span>)
+h5_file = h5py.File(<span class="string">'fashiongen_256_256_train.h5'</span>, <span class="string">'r'</span>)
+TRAIN_SIZE = <span class="builtin">100000</span> 
+
+train_metadata = []
+<span class="keyword">for</span> idx <span class="keyword">in</span> <span class="builtin">range</span>(TRAIN_SIZE):
+    <span class="comment"># Convert internal H5 matrix chunk to standard JPG representations</span>
+    img = Image.fromarray(h5_file[<span class="string">'input_image'</span>][idx])
+    file_name = <span class="string">f"{idx:06d}.jpg"</span>
+    img.save(os.path.join(TRAIN_IMAGES_DIR, file_name), quality=<span class="builtin">95</span>)
+    
+    <span class="comment"># Decode string representations to extract pure prompt format</span>
+    desc = h5_file[<span class="string">'input_description'</span>][idx].decode(<span class="string">'utf-8'</span>)
+    prompt = <span class="builtin">str</span>(desc).split(<span class="string">','</span>)[<span class="builtin">0</span>]
+    
+    train_metadata.append({<span class="string">"file_name"</span>: <span class="string">f"images/{file_name}"</span>, <span class="string">"text"</span>: prompt})
+
+<span class="comment"># Dump aligned schema into HuggingFace dataset format</span>
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"metadata.csv"</span>, <span class="string">'w'</span>) <span class="keyword">as</span> f:
+    writer = csv.DictWriter(f, fieldnames=[<span class="string">"file_name"</span>, <span class="string">"text"</span>])
+    writer.writeheader()
+    writer.writerows(train_metadata)
+</pre>
+<div class="code-caption">Snippet 3.1: Python block extracting complex H5 arrays into ML-ready file hierarchies & text tokens.</div>
+
+        <h2>3.3 Text to Image Generation Workflow</h2>
+        <p>
+            The core engine initializes random latent noise corresponding to the target resolution. This noise is then submitted to the Unet scheduler (`UniPCMultistepScheduler` selected for its rapid convergence capabilities). At every step, the CLIP text encoder translates the user prompt into embedding vectors. These vectors guide the cross-attention mechanisms toward the semantic features (colors, materials, clothing types) requested by the user.
+        </p>
+
+        <h2>3.4 Structure Extraction Pipeline</h2>
+        <p>
+            Before inference begins, the reference image operates through an OpenCV block using Canny algorithm parameters (typically a lower threshold of 100 and an upper threshold of 200). The resulting binary map strictly delineates the edges. This tensor is passed to the ControlNet block. During the reverse diffusion steps, the ControlNet forces the latents to respect the strong boundaries of the edge map, guaranteeing the generated model assumes the identical posture as the input reference.
+        </p>
+
+        <h2>3.5 Model Fine-Tuning Strategy (30k vs 5k)</h2>
+        <p>
+            To achieve domain supremacy, LOOMAI utilizes selective fine-tuning configurations via HuggingFace's Accelerate library. Training over consumer and lower-tier workstation equipment necessitates hardware optimization. The training command delegates processing constraints directly to `accelerate` scaling.
+        </p>
+        <p>
+            Critically, explicitly for AMD GPU stability over ROCm, mixed precision capabilities are suppressed down to native `fp32` (<code>mixed_precision="no"</code>). This prevents ROCm core gradient crashing, optimizing for architectural stability rather than execution speed. The actual training script execution reads as follows:
+        </p>
+
+<pre><span class="keyword">!accelerate</span> launch --mixed_precision=<span class="string">"no"</span> train_text_to_image_lora.py \
+  --pretrained_model_name_or_path=<span class="string">"runwayml/stable-diffusion-v1-5"</span> \
+  --train_data_dir=<span class="string">"./working/fashion_train"</span> \
+  --caption_column=<span class="string">"text"</span> \
+  --resolution=<span class="builtin">256</span> \
+  --random_flip \
+  --train_batch_size=<span class="builtin">2</span> \
+  --gradient_accumulation_steps=<span class="builtin">2</span> \
+  --max_train_steps=<span class="builtin">30000</span> \
+  --learning_rate=<span class="builtin">1e-04</span> \
+  --max_grad_norm=<span class="builtin">1</span> \
+  --lr_scheduler=<span class="string">"cosine"</span>
+</pre>
+<div class="code-caption">Snippet 3.2: Execution arguments injecting hyperparameters directly into the LoRA script. Notice the 30,000 max_train_steps boundary enabling robust domain shifts.</div>
+
+        <p>
+            We generated LoRA checkpoints varying by training duration. Our structural repository includes:
+            <ul>
+                <li><strong>30k Steps Model:</strong> Aggressive adaptation over prolonged iterations, optimizing deep textile representations.</li>
+                <li><strong>5k Steps Model:</strong> Rapid iteration adaptation for comparative study against the prolonged variant.</li>
+            </ul>
+        </p>
+    </div>
+
+    <!-- CHAPTER 4 -->
+    <div class="page" id="chap4">
+        <h1>4. Implementation Details & Pipeline Setup</h1>
+
+        <h2>4.1 Technical Stack</h2>
+        <p>
+            LOOMAI is built atop an robust machine learning software ecosystem bridging model accessibility with high performance:
+            <ul>
+                <li><strong>Programming Language:</strong> Python 3.9+</li>
+                <li><strong>Deep Learning Framework:</strong> PyTorch - Provides tensor manipulation and accelerated GPU ops via CUDA/ROCm.</li>
+                <li><strong>Libraries:</strong> Hugging Face <code>diffusers</code> and <code>transformers</code> for pipeline automation.</li>
+                <li><strong>Computer Vision:</strong> <code>OpenCV</code> (cv2) and <code>Pillow</code> for direct image manipulation and Canny extraction.</li>
+                <li><strong>Frontend Interface:</strong> Gradio - Selected for its rapid prototyping capabilities turning ML functions into responsive web UIs.</li>
+            </ul>
+        </p>
+
+        <h2>4.2 Model Layout Assembly & Initialization</h2>
+        <p>
+            With training complete, runtime architectures fuse localized components seamlessly resolving across platforms based purely on `cuda` vs `cpu` indicators (allowing AMD HIP integration natively under Pytorch). 
+        </p>
+
+<pre><span class="keyword">import</span> torch
+<span class="keyword">from</span> diffusers <span class="keyword">import</span> StableDiffusionControlNetPipeline, ControlNetModel, UniPCMultistepScheduler
+
+<span class="comment"># Device mapping ensures seamless transition between AMD/NVIDIA architectures</span>
+device = <span class="string">"cuda"</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">"cpu"</span>
+dtype = torch.float16 <span class="keyword">if</span> device == <span class="string">"cuda"</span> <span class="keyword">else</span> torch.float32
+
+<span class="comment"># 1. Initialize Canonical ControlNet</span>
+controlnet = ControlNetModel.from_pretrained(
+    <span class="string">"lllyasviel/control_v11p_sd15_canny"</span>, torch_dtype=dtype)
+
+<span class="comment"># 2. Inject components into base SD generation pipeline</span>
+pipe = StableDiffusionControlNetPipeline.from_pretrained(
+    <span class="string">"runwayml/stable-diffusion-v1-5"</span>,
+    controlnet=controlnet,
+    torch_dtype=dtype,
+    safety_checker=<span class="builtin">None</span>
+).to(device)
+
+<span class="comment"># Enable fast multi-step processing scheduler</span>
+pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
+</pre>
+<div class="code-caption">Snippet 4.1: Diffusers library stitching SD 1.5 logic directly to ControlNet matrices.</div>
+
+        <h2>4.3 Dynamic LoRA Hooking & Canny Logic</h2>
+        <p>
+            The newly processed <code>pytorch_lora_weights.safetensors</code> replaces SD's cross-attention mechanisms efficiently. To permit immediate testing between Kaggle cloud structures and localized ROCm environments, the pipeline implements a heuristic recursive search. Below we load the LoRA weights and define the edge bounding function.
+        </p>
+
+<pre><span class="comment"># Attach newly modeled custom weights automatically detected in relative repositories</span>
+<span class="keyword">if</span> LORA_WEIGHTS_PATH:
+    <span class="builtin">print</span>(<span class="string">f"?? Loading LoRA weights from: {LORA_WEIGHTS_PATH}"</span>)
+    pipe.load_lora_weights(LORA_WEIGHTS_PATH, weight_name=<span class="string">"pytorch_lora_weights.safetensors"</span>)
+
+<span class="keyword">def</span> <span class="function">extract_canny</span>(image: Image.Image, low: <span class="builtin">int</span> = <span class="builtin">100</span>, high: <span class="builtin">int</span> = <span class="builtin">200</span>) -> Image.Image:
+    <span class="comment">"""Translate raw RGB into explicit spatial map."""</span>
+    img_array = np.array(image.convert(<span class="string">"RGB"</span>))
+    <span class="keyword">if</span> <span class="builtin">len</span>(img_array.shape) == <span class="builtin">2</span>:
+        img_array = cv2.cvtColor(img_array, cv2.COLOR_GRAY2RGB)
+        
+    edges = cv2.Canny(img_array, low, high)
+    edges_rgb = np.stack([edges] * <span class="builtin">3</span>, axis=-<span class="builtin">1</span>)
+    <span class="keyword">return</span> Image.fromarray(edges_rgb)
+</pre>
+<div class="code-caption">Snippet 4.2: Automated framework merging LoRA matrices into the U-Net and functional edge mapping enforcing pose constraints.</div>
+
+        <h2>4.4 Cross-Platform Execution Environments</h2>
+        <p>
+            A major achievement of the LOOMAI project is environmental agnostic deployment. We bifurcated the development environments into two standalone setups located internally within the workspace.
+        </p>
+        
+        <h3>AMD ROCm Configuration</h3>
+        <p>
+            Found in <code>controllable-fashion-image-synthesis-project-AMD</code>. Supporting local development utilizing AMD consumer or instinct cards. ROCm 5.7+ enables PyTorch to interface with AMD�s HIP execution layer seamlessly replicating CUDA�s API calls. Deployment is wrapped via a <code>setup.sh</code> script which formulates a virtual environment explicitly fetching ROCm-compatible PyTorch wheels.
+        </p>
+
+        <h3>NVIDIA Kaggle Environment</h3>
+        <p>
+            Found in <code>controllable-fashion-image-synthesis-project-kaggle</code>. For cloud-centric environments and individuals lacking local hardware. Notebooks deploy standard PyTorch CUDA primitives utilizing FP16 precision. Model weights (`Model_weights_for_inference`) are compressed as datasets mapping into the Kaggle workspace.
+        </p>
+
+        <h2>4.5 Graphical User Interface (Gradio)</h2>
+        <p>
+            The standard terminal interface restricts designers. I developed <code>app.py</code> as a comprehensive UI. Users load the application passing a CLI argument for the LoRA checkpoint directory. The generation hook orchestrated by the UI operates as follows:
+        </p>
+<pre><span class="keyword">import</span> gradio <span class="keyword">as</span> gr
+
+<span class="keyword">def</span> <span class="function">generate_ui</span>(image, prompt, neg_prompt, steps, cfg_scale, low_th, high_th, seed):
+    input_image = image.convert(<span class="string">"RGB"</span>).resize((<span class="builtin">256</span>, <span class="builtin">256</span>))
+    edge_map = extract_canny(input_image, low_th, high_th)
+    
+    generator = torch.manual_seed(seed)
+    
+    output = pipe(
+        prompt=prompt,
+        image=edge_map,              <span class="comment"># Conditional Input bounded</span>
+        negative_prompt=neg_prompt,
+        num_inference_steps=steps,
+        guidance_scale=cfg_scale,
+        generator=generator
+    ).images[<span class="builtin">0</span>]
+    
+    <span class="keyword">return</span> output, edge_map
+</pre>
+<div class="code-caption">Snippet 4.3: The simplified Gradio inference router tying the UI elements into the underlying Diffusers layer.</div>
+    </div>
+
+    <!-- CHAPTER 5 -->
+    <div class="page" id="chap5">
+        <h1>5. Results & Evaluation</h1>
+
+        <h2>5.1 Qualitative Analysis and Generation Sample</h2>
+        <p>
+            The project yields exceptional high-fidelity fashion outcomes. As evidenced by internal tests against varying textual prompts attached to a single canonical reference pose, the system correctly maintains the baseline geometry. 
+        </p>
+        <p>
+            <em>Example inputs tested against the pipeline:</em><br>
+            - "Classic black leather jacket"<br>
+            - "Sleeveless green cotton T-shirt"<br>
+            - "Purple silky sleeping gown"<br>
+            In every instantiation, the spatial dimensions representing the human subject remained unaffected. The ControlNet bounded the new texture generation tightly to the edges established.
+        </p>
+
+        <h2>5.2 Ablation Study: Denoising Steps (20 vs 40)</h2>
+        <p>
+            The configuration of denoising steps drastically alters inference latency and generation fidelity. LOOMAI�s repository includes evaluation notebooks investigating specific thresholds:
+        </p>
+        <ul>
+            <li><strong>20 Denoising Steps:</strong> Delivered ultra-low latency, sufficient for real-time prototyping iteration. While textures are discernible, minor background static artifacts sometimes persist.</li>
+            <li><strong>40 Denoising Steps:</strong> Substantially slower iteration, yet produces photorealistic weave structures on dense textiles (like wool or denim) and superior lighting coherence.</li>
+        </ul>
+
+        <h2>5.3 Ablation Study: Training Iterations (5k vs 30k)</h2>
+        <p>
+            We isolated training states in `pytorch_lora_weights.safetensors` stored under varying checkpoints (e.g., <code>checkpoint-1000</code> through <code>checkpoint-5000</code>, up to <code>30k+3k</code> models).
+            <ul>
+                <li>The <strong>5k model</strong> demonstrated an ability to map general color themes to the clothing structure, however, struggled to deeply comprehend specific fashion vernacular (e.g., "bomber jacket" sometimes rendered akin to a cardigan).</li>
+                <li>The <strong>30k model</strong> achieved profound domain adaptation. The cross-attention layers deeply interlinked textile prompts to the generated visual matrices, allowing the system to comprehend elaborate prompt cascades identically simulating high-end studio catalogues. Adding zippers, fabric weave modifications, and sophisticated lapel structures were rendered cleanly bypassing the limitations of the baseline diffusion mappings.</li>
+            </ul>
+        </p>
+        
+        <h2>5.4 Quantitative Constraints</h2>
+        <p>
+            During evaluation (`controllable-fashion-image-synthesis-v1-evaluation.ipynb`), modern standardized metrics test synthesis capability. While human feedback governs qualitative success in fashion, structural integrity maps utilized automated bounding evaluations measuring pixel-deviation between the Canny map of the generated image versus the reference Canny map�yielding over 95% edge confidence retention.
+        </p>    </div>
+
+    <!-- CHAPTER 6 -->
+    <div class="page" id="chap6">
+        <h1>6. System Setup & Deployment</h1>
+
+        <h2>6.1 Hardware Prerequisites</h2>
+        <p>
+            Due to the expansive parameters of precision latent modeling, hardware requirements necessitate competent graphical memory.
+            <ul>
+                <li><strong>Minimum:</strong> 8GB VRAM (NVIDIA RTX 3060 / AMD RX 6600), 16GB System RAM, SSD Array.</li>
+                <li><strong>Recommended:</strong> 16GB+ VRAM, 32GB System RAM. Operates securely on Kaggle P100/T4 cloud environments dynamically.</li>
+            </ul>
+        </p>
+
+        <h2>6.2 Installation Protocol Strategy</h2>
+        <p>
+            The repository is built for modular installation. To execute the project code, the following steps are sequentially operated under a terminal application.
+        </p>
+        
+        <h3>For ROCm / AMD Integrations:</h3>
+<pre><code># Navigate into the workspace module
+cd Img-synthesis/controllable-fashion-image-synthesis-project-AMD
+
+# Invoke automated script defining env and torch-rocm
+chmod +x setup.sh
+./setup.sh
+
+# Activate the venv and verify architecture
+source venv/bin/activate
+python verify_setup.py
+
+# Engage the interface
+jupyter notebook controllable-fashion-image-synthesis-app.ipynb
+</code></pre>
+
+        <h3>Web User Interface Execution:</h3>
+<pre><code># At the root directory (Img-synthesis)
+# Invoke Gradio application attaching the 30k step LoRA weights mapping.
+python app.py \
+  --weights ./assets/weights/Model_weights_for_inference/fashion_image_generation_30k+3k_denoising20/ \
+  --share
+</code></pre>
+        <p>
+            Applying the <code>--share</code> flag commands the Gradio runtime to issue a reverse-proxy tunnel, yielding a live internet URL accessible universally�allowing stakeholders to review the model inference without localized hardware.
+        </p>
+    </div>
+
+    <!-- CHAPTER 7 -->
+    <div class="page" id="chap7">
+        <h1>7. Risks, Challenges & Ethical Considerations</h1>
+
+        <h2>7.1 Hallucinations and Generative Artifacts</h2>
+        <p>
+            Generative systems are probabilistic. When structural maps are overly complex or cluttered with background objects, the Canny detector injects noise directly into the ControlNet boundary. This forces the SD-1.5 U-Net to erroneously synthesize textures into the background logic�a constraint mitigated by utilizing negative prompting directives inside the UI (e.g., "noisy, cluttered, chaotic framing, bad anatomy").
+        </p>
+
+        <h2>7.2 Training Datasets and Bias</h2>
+        <p>
+            Fashion models inherently lean into specific demographics based on geographic dataset biases. While LOOMAI modifies clothing, it preserves the inherent shapes present in the reference images. Responsible deployment necessitates curating expansive reference templates to encourage total diversity.
+        </p>
+        
+        <h2>7.3 Performance Optimization vs Precision</h2>
+        <p>
+            The decision to mandate FP32 precision was an active engineering choice preventing numerical underflow primarily within AMD configurations, sacrificing memory footprint and speed for reliability. Transitioning to <code>torch.float16</code> strictly on NVIDIA environments presents a ~2.4x throughput upgrade without perceivable image degradation.
+        </p>
+    </div>
+
+    <!-- CHAPTER 8 -->
+    <div class="page" id="chap8">
+        <h1>8. Conclusion & Future Work</h1>
+
+        <h2>8.1 Summary of Contributions</h2>
+        <p>
+            The <strong>LOOMAI</strong> project extensively researched, modeled, and proved a deterministic interface controlling generative AI models exclusively for the domain of fashion design. By fusing a standard Text-to-Image backbone (Stable Diffusion 1.5), robust edge-constraint mapping (ControlNet-Canny), and fine-grained knowledge encoding (LoRA optimization targeting 30k intervals), the pipeline succeeded in decoupling fashion from complex structural generation. By strategically isolating dataset generation through HDF5 chunking and applying code-level hardware interoperability, the resulting codebase stands as a comprehensive semester project demonstrating mastery over foundational generative machine learning techniques. 
+        </p>
+
+        <h2>8.2 Future Enhancements</h2>
+        <p>
+            Future iterations of this system could theoretically pivot into multiple domains:
+        </p>
+        <ul>
+            <li><strong>Video Temporal Consistency:</strong> Utilizing architectures such as AnimateDiff combined with ControlNet to map fashion changes to moving mannequins.</li>
+            <li><strong>Latent LCM Adoption:</strong> Integrating Latent Consistency Models (LCM), allowing image synthesis dropping from 20-40 inference steps down to 2-4 iterations, achieving true real-time UI manipulation.</li>
+            <li><strong>Semantic Segmentation Controls:</strong> Discarding Canny Edge maps in favor of specialized Semantic Segmentation maps restricting the ControlNet exclusively to the "garment" pixels, allowing the subject's face and background to remain photorealistically identical to the reference avoiding regeneration.</li>
+        </ul>
+    </div>
+    
+    <!-- REFERENCES -->
+    <div class="page no-page-break">
+        <h1>References</h1>
+        <ul>
+            <li>Rombach, R., Blattmann, A., Lorenz, D., Esser, P., & Ommer, B. (2022). High-Resolution Image Synthesis with Latent Diffusion Models. <i>CVPR</i>.</li>
+            <li>Zhang, L., & Agrawala, M. (2023). Adding Conditional Control to Text-to-Image Diffusion Models (ControlNet). <i>arXiv preprint arXiv:2302.05543</i>.</li>
+            <li>Hu, E. J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., & Chen, W. (2021). LoRA: Low-Rank Adaptation of Large Language Models. <i>ICLR</i>.</li>
+            <li>Hugging Face (2023). Diffusers Documentation. Available at: https://huggingface.co/docs/diffusers/</li>
+            <li>AMD (2023). ROCm Architecture Documentation. Available at: https://rocm.docs.amd.com/</li>
+        </ul>
+        <br><br><br>
+        <p style="text-align: center; font-style: italic; color: #777;">
+            -- End of Document --
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>

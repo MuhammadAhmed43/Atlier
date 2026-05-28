@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+working/fashion_lora_output/checkpoint*
+# Model files (too large for git)
+#*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.bin
+
+# Data files
+*.h5
+*.hdf5
+*.zip
+*.tar.gz
+
+# Working directory (generated files)
+working/eval_data/
+working/model_cache/
+working/fashion_train/
+*.png
+*.jpg
+*.jpeg
+generated_*.png
+output_*.png
+quick_output_*.png
+batch_*.png
+
+# Evaluation outputs
+final_metrics.json
+comprehensive_evaluation_report.json
+per_sample_metrics.csv
+structure_preservation_metrics.csv
+statistical_analysis.json
+evaluation_results.zip
+complete_evaluation_results.zip
+
+# Logs
+*.log
+logs/
+tensorboard_logs/
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Temporary files
+tmp/
+temp/
+*.tmp

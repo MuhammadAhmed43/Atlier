@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Atelier backend test</title>
+  <style>
+    body { font: 14px system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.4rem; }
+    .row { display: flex; gap: 1rem; align-items: flex-start; }
+    .col { flex: 1; }
+    label { display: block; margin: 0.6rem 0 0.2rem; font-weight: 600; }
+    input, textarea, select, button { width: 100%; padding: 0.5rem; box-sizing: border-box; }
+    button { background: #1a1a1a; color: #fff; border: 0; padding: 0.7rem; cursor: pointer; font-weight: 600; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .imgs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 1rem; }
+    .imgs figure { margin: 0; }
+    .imgs img { width: 100%; image-rendering: pixelated; border: 1px solid #ddd; background: #f6f4ee; }
+    .imgs figcaption { font-size: 11px; color: #666; text-align: center; margin-top: 4px; }
+    #log { font: 11px ui-monospace, monospace; background: #fafaf7; border: 1px solid #ddd; padding: 0.5rem; max-height: 200px; overflow: auto; margin-top: 1rem; white-space: pre-wrap; }
+    .preview-strip { display: flex; gap: 4px; overflow-x: auto; margin-top: 0.5rem; }
+    .preview-strip img { height: 80px; width: 80px; border: 1px solid #ccc; image-rendering: pixelated; }
+  </style>
+</head>
+<body>
+  <h1>Atelier backend — local test</h1>
+  <p id="status">checking backend…</p>
+
+  <label for="sample">Reference sample</label>
+  <select id="sample"></select>
+
+  <label for="prompt">Prompt</label>
+  <textarea id="prompt" rows="2">A classic black leather jacket with silver zippers and fitted silhouette</textarea>
+
+  <div class="row">
+    <div class="col">
+      <label for="steps">Steps</label>
+      <input id="steps" type="number" value="20" min="10" max="50" />
+    </div>
+    <div class="col">
+      <label for="guidance">Guidance</label>
+      <input id="guidance" type="number" value="7.5" min="1" max="15" step="0.5" />
+    </div>
+    <div class="col">
+      <label for="seed">Seed (-1 random)</label>
+      <input id="seed" type="number" value="-1" />
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+    <button id="go-stream">Generate (stream)</button>
+    <button id="go-once">Generate (no stream)</button>
+  </div>
+
+  <div class="preview-strip" id="preview-strip"></div>
+
+  <div class="imgs">
+    <figure><img id="img-ref" alt="reference" /><figcaption>reference</figcaption></figure>
+    <figure><img id="img-edges" alt="edges" /><figcaption>edges</figcaption></figure>
+    <figure><img id="img-out" alt="generated" /><figcaption>generated</figcaption></figure>
+  </div>
+
+  <div id="log"></div>
+
+<script>
+const API = "http://localhost:8001";
+const $ = (id) => document.getElementById(id);
+const log = (m) => { $("log").textContent += m + "\n"; $("log").scrollTop = 1e9; };
+
+async function init() {
+  try {
+    const h = await fetch(API + "/health").then(r => r.json());
+    $("status").textContent = "backend: " + JSON.stringify(h);
+    const s = await fetch(API + "/samples").then(r => r.json());
+    const sel = $("sample");
+    sel.innerHTML = "";
+    for (const it of s.samples) {
+      const o = document.createElement("option");
+      o.value = it.id; o.textContent = it.id;
+      sel.appendChild(o);
+    }
+    if (s.samples.length === 0) {
+      const o = document.createElement("option");
+      o.value = ""; o.textContent = "(no samples — drop PNGs in atelier-backend/samples/)";
+      sel.appendChild(o);
+    }
+  } catch (e) {
+    $("status").textContent = "backend unreachable: " + e;
+  }
+}
+
+function reqBody() {
+  return {
+    prompt: $("prompt").value,
+    sample_id: $("sample").value,
+    steps: +$("steps").value,
+    guidance: +$("guidance").value,
+    seed: +$("seed").value,
+  };
+}
+
+$("go-once").onclick = async () => {
+  $("log").textContent = "";
+  log("POST /generate …");
+  const r = await fetch(API + "/generate", {
+    method: "POST",
+    headers: {"content-type": "application/json"},
+    body: JSON.stringify(reqBody()),
+  });
+  const j = await r.json();
+  if (!r.ok) { log("error: " + JSON.stringify(j)); return; }
+  $("img-ref").src = "data:image/png;base64," + j.reference_b64;
+  $("img-edges").src = "data:image/png;base64," + j.edges_b64;
+  $("img-out").src = "data:image/png;base64," + j.image_b64;
+  log("done, seed=" + j.seed);
+};
+
+$("go-stream").onclick = () => {
+  $("log").textContent = "";
+  $("preview-strip").innerHTML = "";
+  const p = new URLSearchParams(reqBody());
+  const url = API + "/generate/stream?" + p.toString();
+  log("SSE " + url);
+  const es = new EventSource(url);
+  es.addEventListener("ready", e => {
+    const d = JSON.parse(e.data);
+    $("img-ref").src = "data:image/png;base64," + d.reference_b64;
+    $("img-edges").src = "data:image/png;base64," + d.edges_b64;
+    $("img-out").src = "";
+    log("ready: steps=" + d.total_steps + " seed=" + d.seed_used);
+  });
+  es.addEventListener("step", e => {
+    const d = JSON.parse(e.data);
+    log("step " + d.index + "/" + d.total + (d.preview_b64 ? " (preview)" : ""));
+    if (d.preview_b64) {
+      const img = new Image();
+      img.src = "data:image/jpeg;base64," + d.preview_b64;
+      img.title = "step " + d.index;
+      $("preview-strip").appendChild(img);
+      $("img-out").src = img.src;
+    }
+  });
+  es.addEventListener("done", e => {
+    const d = JSON.parse(e.data);
+    $("img-out").src = "data:image/png;base64," + d.image_b64;
+    log("done in " + d.elapsed_s + "s, seed=" + d.seed);
+    es.close();
+  });
+  es.addEventListener("error", e => {
+    log("error event");
+    try { log(JSON.stringify(JSON.parse(e.data))); } catch {}
+    es.close();
+  });
+};
+
+init();
+</script>
+</body>
+</html>

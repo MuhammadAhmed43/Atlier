@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Layered Synthesis - ATELIER</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&amp;family=Playfair+Display:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#5c4211",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "surface": "#fbf9f3",
+                        "on-secondary-fixed": "#271900",
+                        "tertiary-fixed-dim": "#cfc5b6",
+                        "surface-container": "#f0eee8",
+                        "secondary": "#765a26",
+                        "on-primary-container": "#858383",
+                        "secondary-fixed": "#ffdea9",
+                        "on-tertiary-fixed-variant": "#4c463a",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e4e2dd",
+                        "surface-dim": "#dcdad4",
+                        "inverse-surface": "#30312d",
+                        "outline": "#747878",
+                        "on-background": "#1b1c18",
+                        "on-primary-fixed-variant": "#474746",
+                        "surface-tint": "#5f5e5e",
+                        "primary": "#000000",
+                        "tertiary": "#000000",
+                        "on-tertiary-fixed": "#201b11",
+                        "primary-container": "#1c1b1b",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#eae8e2",
+                        "inverse-primary": "#c8c6c5",
+                        "surface-variant": "#e4e2dd",
+                        "inverse-on-surface": "#f3f1eb",
+                        "primary-fixed": "#e5e2e1",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#fed798",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "background": "#fbf9f3",
+                        "tertiary-fixed": "#ebe1d1",
+                        "surface-container-low": "#f5f3ed",
+                        "on-surface": "#1b1c18",
+                        "on-tertiary-container": "#8b8375",
+                        "secondary-fixed-dim": "#e6c184",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#fbf9f3",
+                        "tertiary-container": "#201b11",
+                        "outline-variant": "#c4c7c7",
+                        "on-primary-fixed": "#1c1b1b",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#444748",
+                        "on-secondary-container": "#785c29"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "mono-code": ["Geist"],
+                        "display-xl": ["Playfair Display"],
+                        "body-lg": ["Geist"],
+                        "headline-lg": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "body-md": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "headline-md": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "mono-code": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "display-xl": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "body-md": ["15px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Layered Synthesis Animation & Styles */
+        .layer-container {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+        
+        .layer {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+        }
+        
+        .layer-bottom {
+            transform: translateZ(0px) scale(0.95);
+            opacity: 0.7;
+        }
+        
+        .layer-middle {
+            transform: translateZ(40px) scale(0.97);
+            mix-blend-mode: overlay;
+        }
+        
+        .layer-top {
+            transform: translateZ(80px) scale(1);
+            mix-blend-mode: screen;
+        }
+        
+        .synthesis-view:hover .layer-bottom { transform: translateZ(-20px) translateX(-10px) translateY(10px) scale(0.95); }
+        .synthesis-view:hover .layer-middle { transform: translateZ(20px) scale(0.97); }
+        .synthesis-view:hover .layer-top { transform: translateZ(60px) translateX(10px) translateY(-10px) scale(1); }
+
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background: #000000;
+            cursor: pointer;
+            margin-top: -5px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            cursor: pointer;
+            background: #e4e2dd;
+        }
+        
+        /* Custom Checkbox */
+        .custom-checkbox:checked {
+            background-color: #000000;
+            border-color: #000000;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-background border-b border-outline-variant dark:border-outline flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-20 sticky top-0 z-50">
+<div class="flex items-center gap-12">
+<h1 class="text-headline-md font-headline-md font-normal tracking-tight text-primary dark:text-on-primary-fixed">ATELIER</h1>
+<nav class="hidden md:flex gap-8">
+<a class="font-label-sm text-label-sm uppercase text-on-surface-variant dark:text-on-tertiary-container pb-1 hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300" href="#">Studio</a>
+<a class="font-label-sm text-label-sm uppercase text-on-surface-variant dark:text-on-tertiary-container pb-1 hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300" href="#">Lookbook</a>
+<a class="font-label-sm text-label-sm uppercase text-on-surface-variant dark:text-on-tertiary-container pb-1 hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300" href="#">About</a>
+</nav>
+</div>
+<div class="flex items-center gap-4 text-primary dark:text-on-primary-fixed">
+<button class="hover:text-primary dark:hover:text-on-primary-fixed transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="circle">circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Layout -->
+<main class="flex-grow flex flex-col lg:flex-row w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12 gap-gutter relative">
+<!-- SYNTHESIS ENGINE (Canvas) -->
+<section class="flex-grow flex flex-col min-w-0">
+<div class="mb-6 flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-2">Synthesis Engine</h2>
+<p class="font-mono-code text-mono-code text-on-surface-variant uppercase tracking-widest">V3.2 // Layered Construction</p>
+</div>
+</div>
+<!-- 3D Layer Viewer -->
+<div class="relative w-full aspect-[3/4] md:aspect-auto md:h-[70vh] bg-surface-container-low border border-outline-variant overflow-hidden synthesis-view flex items-center justify-center layer-container group cursor-crosshair">
+<!-- Bottom Layer: Reference -->
+<div class="absolute inset-0 w-full h-full p-8 layer layer-bottom flex items-center justify-center" id="layer-ref">
+<img alt="Original reference photograph of a model wearing a double-breasted navy blazer." class="w-full h-full object-cover object-center border border-outline-variant" src="https://lh3.googleusercontent.com/aida/ADBb0uiHZOWRtoVtmICTzkzlqheNYJ0RLvIDTMuWHvXRcDbDX6Oc9zGXGab5vuZdaUXpbcrQp5KHEO5u4ZLedoHxGZLVvDOnf_NiVJkO_Io4v3bDAIirqZ7mfuixO0spvJOPHx6Qo_TUIohrsTmfbuuo3XhujtbP0kXlCx-5VXg10-BodIqCwmoTRphke1Elelpo27yH6RqkQvXf7ShNJ_ZqUMzfsG5TQ2j_Fykqxp7XqhjZDoMWR-33tZctyBwG"/>
+<div class="absolute bottom-12 left-12 bg-surface/80 backdrop-blur-md px-3 py-1 border border-outline-variant font-mono-code text-[10px] uppercase text-on-surface-variant">Base // Reference</div>
+</div>
+<!-- Middle Layer: Prompt Latents (Noise/Texture) -->
+<div class="absolute inset-0 w-full h-full p-8 layer layer-middle flex items-center justify-center" id="layer-prompt">
+<img alt="Generative AI noise and latent texture interpreting a navy wool blazer." class="w-full h-full object-cover object-center mix-blend-overlay opacity-60" src="https://lh3.googleusercontent.com/aida/ADBb0uhGUzFSd_teZ26BYxXnwK75HrSIZ2NWQQEhZI8T-wSGSY2o3kb2fVQ07aEq5j-ugci0B69S_ro0NPZ_vJwRLqwuK0j6JEB1nt7FiPTFYui2ALYE3wrPDoagHJBspFrv0hmBW1eiAVS6Y_D6Fshs7AxKhigyE7pY15Y2k0Y-kf9j3RlsF77ps3np0ek5zcWXqEp6SfO2TJq4eQlrgJTN19k69Uh40FgXkN8Fnbrlpf8mgLqzh2OkSmwXrFY3"/>
+<div class="absolute bottom-12 right-12 bg-surface/80 backdrop-blur-md px-3 py-1 border border-outline-variant font-mono-code text-[10px] uppercase text-on-surface-variant">Latent // Texture Field</div>
+</div>
+<!-- Top Layer: ControlNet Edge Mask -->
+<div class="absolute inset-0 w-full h-full p-8 layer layer-top flex items-center justify-center" id="layer-edge">
+<img alt="White glowing skeletal edge map outlining the structure of a blazer against a black background." class="w-full h-full object-cover object-center mix-blend-screen opacity-90" src="https://lh3.googleusercontent.com/aida/ADBb0ui4VFNMaJVoW8inEJNtTPxavduY7ZzgN0hF40QQNx5X1-5spOBvWgL23ryEjuU8JNLPuhTpxk_QoPszOLiSzoRic232WEIDlmgimpzu3bSLqf_vu6IKwoM4NvCISDc_7a9Iv2R3OmyOVmFtG8KJ206Cheh0vXlv6ujP9g2s3tstIdY_eIf1LgIGCtFe5naMesICKx3gBupJ2ZZ8aJ5vKP36S8GF1rd9yWG9CQwlYtVvmpClw5s-COZcbIk"/>
+<div class="absolute top-12 left-12 bg-primary/80 backdrop-blur-md px-3 py-1 border border-outline-variant font-mono-code text-[10px] uppercase text-on-primary">ControlNet // Canny Edge</div>
+</div>
+<!-- Interaction Hint -->
+<div class="absolute bottom-4 left-1/2 -translate-x-1/2 font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Hover to inspect layers
+                </div>
+</div>
+<!-- Prompt Display -->
+<div class="mt-6 border border-outline-variant p-4 bg-surface-container-low relative">
+<span class="absolute -top-2.5 left-4 bg-background px-2 font-mono-code text-[10px] uppercase text-on-surface-variant tracking-wider">Active Prompt</span>
+<p class="font-body-md text-body-md text-primary pt-2">"Navy wool blazer with gold buttons, structured shoulders, double-breasted, high-fashion editorial lighting, 8k resolution, photorealistic."</p>
+</div>
+</section>
+<!-- LAYER CONTROLS (Sidebar) -->
+<aside class="w-full lg:w-[320px] flex-shrink-0 flex flex-col gap-8 lg:sticky lg:top-28 lg:h-[calc(100vh-160px)] overflow-y-auto pb-8 scrollbar-hide">
+<!-- Actions -->
+<div class="flex flex-col gap-3">
+<button class="w-full bg-primary text-on-primary py-3 font-label-sm text-label-sm uppercase tracking-widest hover:bg-on-primary-fixed-variant transition-colors">
+                    Regenerate Synthesis
+                </button>
+<button class="w-full border border-outline-variant text-primary py-3 font-label-sm text-label-sm uppercase tracking-widest hover:bg-surface-variant transition-colors">
+                    Export Composition
+                </button>
+</div>
+<div class="h-px w-full bg-outline-variant"></div>
+<!-- Layer Toggles & Opacity -->
+<div>
+<h3 class="font-mono-code text-mono-code text-on-surface-variant uppercase tracking-widest mb-6">Layer Stack</h3>
+<div class="flex flex-col gap-6">
+<!-- Layer 3: Edges -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<label class="flex items-center gap-3 cursor-pointer">
+<input checked="" class="custom-checkbox form-checkbox h-4 w-4 text-primary border-outline-variant rounded-none focus:ring-0 focus:ring-offset-0" onchange="document.getElementById('layer-edge').style.display = this.checked ? 'flex' : 'none'" type="checkbox"/>
+<span class="font-label-sm text-label-sm uppercase text-primary">Edge Mask (Canny)</span>
+</label>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]" data-icon="visibility">visibility</span>
+</div>
+<div class="pl-7 pr-2">
+<input class="w-full" max="100" min="0" oninput="document.getElementById('layer-edge').style.opacity = this.value / 100" type="range" value="90"/>
+</div>
+</div>
+<!-- Layer 2: Prompt -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<label class="flex items-center gap-3 cursor-pointer">
+<input checked="" class="custom-checkbox form-checkbox h-4 w-4 text-primary border-outline-variant rounded-none focus:ring-0 focus:ring-offset-0" onchange="document.getElementById('layer-prompt').style.display = this.checked ? 'flex' : 'none'" type="checkbox"/>
+<span class="font-label-sm text-label-sm uppercase text-primary">Prompt Latents</span>
+</label>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]" data-icon="visibility">visibility</span>
+</div>
+<div class="pl-7 pr-2">
+<input class="w-full" max="100" min="0" oninput="document.getElementById('layer-prompt').style.opacity = this.value / 100" type="range" value="60"/>
+</div>
+</div>
+<!-- Layer 1: Reference -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<label class="flex items-center gap-3 cursor-pointer">
+<input checked="" class="custom-checkbox form-checkbox h-4 w-4 text-primary border-outline-variant rounded-none focus:ring-0 focus:ring-offset-0" onchange="document.getElementById('layer-ref').style.display = this.checked ? 'flex' : 'none'" type="checkbox"/>
+<span class="font-label-sm text-label-sm uppercase text-primary">Reference Photo</span>
+</label>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]" data-icon="visibility">visibility</span>
+</div>
+<div class="pl-7 pr-2">
+<input class="w-full" max="100" min="0" oninput="document.getElementById('layer-ref').style.opacity = this.value / 100" type="range" value="70"/>
+</div>
+</div>
+</div>
+</div>
+<div class="h-px w-full bg-outline-variant"></div>
+<!-- Technical Metadata -->
+<div>
+<h3 class="font-mono-code text-mono-code text-on-surface-variant uppercase tracking-widest mb-4">Metadata</h3>
+<ul class="flex flex-col gap-3 font-mono-code text-mono-code text-primary">
+<li class="flex justify-between">
+<span class="text-on-surface-variant">Inference Steps</span>
+<span>24 / 40</span>
+</li>
+<li class="flex justify-between">
+<span class="text-on-surface-variant">ControlNet Strength</span>
+<span>0.85</span>
+</li>
+<li class="flex justify-between">
+<span class="text-on-surface-variant">CFG Scale</span>
+<span>7.5</span>
+</li>
+<li class="flex justify-between">
+<span class="text-on-surface-variant">Seed</span>
+<span>492018374</span>
+</li>
+</ul>
+</div>
+</aside>
+</main>
+<!-- Footer -->
+<footer class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 bg-background dark:bg-background border-t border-outline-variant dark:border-outline mt-auto">
+<div class="font-label-sm text-primary">
+            ATELIER
+        </div>
+<div class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant dark:text-on-tertiary-container hidden md:block">
+            MODEL: STABLE-DIFFUSION-XL-V1.0 // GPU: NVIDIA A100 // LATENCY: 240MS
+        </div>
+<nav class="flex gap-6">
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-on-primary-fixed transition-colors" href="#">API</a>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-on-primary-fixed transition-colors" href="#">Documentation</a>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-on-primary-fixed transition-colors" href="#">Support</a>
+</nav>
+</footer>
+</body></html>

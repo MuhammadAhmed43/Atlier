@@ -1,0 +1,17 @@
+{
+  "seed": 916384991,
+  "prompt": "A classic black leather jacket with silver zippers and fitted silhouette",
+  "steps": 20,
+  "guidance_scale": 7.5,
+  "lora_weights": {
+    "path": "/home/husnain/DLP/working/fashion_lora_output/pytorch_lora_weights.safetensors",
+    "hash": "aa0fce26c9a93d83",
+    "size_bytes": 3226184,
+    "modification_time": 1765651224.0476353
+  },
+  "files": {
+    "source_image": "quick_output_seed916384991_source.png",
+    "generated_image": "quick_output_seed916384991_generated.png"
+  },
+  "timestamp": "2025-12-14T11:21:27.346281"
+}

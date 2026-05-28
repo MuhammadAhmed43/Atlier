@@ -1,0 +1,73 @@
+# ───────────────────────────── Python ─────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ─────────────────────────── Node / Vite ──────────────────────────
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vite/
+.tsbuildinfo
+.eslintcache
+
+# Vite local env (commit .env.example only)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# ────────────────────────────── OS ────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+
+# ─────────────────────────── Editors ──────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ────────────────────────── Logs / temp ───────────────────────────
+*.log
+logs/
+.cache/
+tmp/
+.tmp/
+
+# ───────────────────── Atelier-backend artifacts ──────────────────
+# Locally generated test outputs and quick smoke-test images
+atelier-backend/_test_*.png
+atelier-backend/_*.tmp
+atelier-backend/extracted_fashion_images/
+
+# Hugging Face cache lives in ~/.cache by default — never inside the repo,
+# but exclude anything that lands in the project tree just in case.
+hf_cache/
+.cache/huggingface/
+
+# ────────────────────── Large binaries we skip ────────────────────
+# The .rar archive duplicates the same weights present as .safetensors;
+# keep the .safetensors files (committed) and skip the archive.
+Img-synthesis/assets/weights/Model_weights_for_inference-Kaggle.rar
+
+# ───────────────────────── MCP / secrets ──────────────────────────
+.mcp.json
+.claude/
+
+# Word lock files
+~$*.docx
+~$*.html

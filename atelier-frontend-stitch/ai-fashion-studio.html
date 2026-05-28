@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ATELIER Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#201b11",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "tertiary-fixed-dim": "#cfc5b6",
+                        "surface-tint": "#5f5e5e",
+                        "on-secondary-container": "#785c29",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#fed798",
+                        "primary": "#000000",
+                        "secondary": "#765a26",
+                        "outline": "#747878",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#5c4211",
+                        "surface-container-highest": "#e4e2dd",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-tertiary-container": "#8b8375",
+                        "on-secondary-fixed": "#271900",
+                        "inverse-surface": "#30312d",
+                        "on-surface-variant": "#444748",
+                        "surface-bright": "#fbf9f3",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#474746",
+                        "primary-fixed": "#e5e2e1",
+                        "on-primary-container": "#858383",
+                        "surface": "#fbf9f3",
+                        "surface-container-low": "#f5f3ed",
+                        "secondary-fixed": "#ffdea9",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#dcdad4",
+                        "primary-container": "#1c1b1b",
+                        "secondary-fixed-dim": "#e6c184",
+                        "on-tertiary-fixed": "#201b11",
+                        "outline-variant": "#c4c7c7",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f3f1eb",
+                        "on-surface": "#1b1c18",
+                        "surface-variant": "#e4e2dd",
+                        "tertiary-fixed": "#ebe1d1",
+                        "inverse-primary": "#c8c6c5",
+                        "on-background": "#1b1c18",
+                        "tertiary": "#000000",
+                        "on-tertiary-fixed-variant": "#4c463a",
+                        "background": "#fbf9f3",
+                        "surface-container-high": "#eae8e2",
+                        "on-error": "#ffffff",
+                        "surface-container": "#f0eee8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "margin-mobile": "20px",
+                        "unit": "4px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Geist"],
+                        "headline-md": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "display-xl": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "body-lg": ["Geist"],
+                        "body-md": ["Geist"],
+                        "mono-code": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "400" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "display-xl": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["15px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "mono-code": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .gold-pulse {
+            animation: pulse-gold 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-gold {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .5; transform: scale(1.2); }
+        }
+        .hairline-b { border-bottom: 1px solid #c4c7c7; }
+        .hairline-t { border-top: 1px solid #c4c7c7; }
+        .hairline-r { border-right: 1px solid #c4c7c7; }
+        .hairline-l { border-left: 1px solid #c4c7c7; }
+        .hairline-all { border: 1px solid #c4c7c7; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-background border-b border-outline-variant docked full-width top-0 z-50 flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-20">
+<div class="flex items-center gap-12">
+<h1 class="font-headline-md text-headline-md font-normal tracking-tight text-primary">ATELIER</h1>
+<nav class="hidden md:flex gap-8">
+<a class="font-label-sm text-label-sm text-primary border-b border-primary pb-1 uppercase" href="#">Studio</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-300 pb-1 uppercase" href="#">Lookbook</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-300 pb-1 uppercase" href="#">About</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 font-mono-code text-mono-code text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary gold-pulse"></span>
+                Generating • 14/20
+            </div>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-300">
+<span class="material-symbols-outlined">circle</span>
+</button>
+</div>
+</header>
+<main class="flex-grow flex flex-col">
+<!-- Section 1: Studio Canvas & Control Deck -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter px-margin-mobile md:px-margin-desktop py-12 flex-grow">
+<!-- Left Col: Studio Canvas -->
+<div class="md:col-span-7 flex flex-col gap-6">
+<div class="hairline-all p-4 bg-surface-container-lowest">
+<img alt="High-end fashion editorial photography. A professional model in a minimalist studio setting, wearing a structural navy wool blazer with gold buttons. Clean background, soft lighting, Vogue style. High-fidelity garment texture." class="w-full aspect-[1.34] object-cover bg-surface-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX2b9YYTYAvm1azgEIBzHaT_DoGiHniYOJyJhDsOnNF50-1QibdbYv6IMGnjZWGt6OCF_DRntXzDMYup9HfDRZO9Q3ZwNT1NVtQB-zfMmCOOoXaFqH3vOXPnYzeQrQtSQ7KJlpZrh93fMdBwoi4xeIdMsyGxAg4viC3c0C1kqrLYB4Npd7GR2CsFXTpZzwf-IqXONr7vZfSbsmSOAVBse-MMXvGEPr9N9mxnyfTiwBkvbQTCcfb6FEecrvdcrbCxOPUSDVN7iyYRnQ"/>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex gap-2">
+<button class="font-label-sm text-label-sm uppercase px-4 py-2 hairline-all hover:bg-surface-variant transition-colors">Previous</button>
+<button class="font-label-sm text-label-sm uppercase px-4 py-2 hairline-all hover:bg-surface-variant transition-colors">Random</button>
+<button class="font-label-sm text-label-sm uppercase px-4 py-2 hairline-all hover:bg-surface-variant transition-colors">Next</button>
+</div>
+<button class="font-label-sm text-label-sm uppercase px-4 py-2 hairline-all hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">shuffle</span>
+                            Shuffle Set
+                        </button>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
+<div class="w-24 h-24 flex-shrink-0 hairline-all bg-surface-variant bg-[url('https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&amp;w=200&amp;auto=format&amp;fit=crop')] bg-cover bg-center" data-alt="A small thumbnail showing a detail of a tweed jacket fabric texture. Soft lighting, neutral color palette with hints of grey and brown. High-resolution editorial close-up style. Perfect for fashion inspiration boards."></div>
+<div class="w-24 h-24 flex-shrink-0 hairline-all bg-surface-variant bg-[url('https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&amp;w=200&amp;auto=format&amp;fit=crop')] bg-cover bg-center" data-alt="A small thumbnail showing a detail of a silk dress fabric texture. Soft lighting, deep emerald green color. High-resolution editorial close-up style. Elegant folds catching the light."></div>
+<div class="w-24 h-24 flex-shrink-0 hairline-all bg-surface-variant bg-[url('https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&amp;w=200&amp;auto=format&amp;fit=crop')] bg-cover bg-center" data-alt="A small thumbnail showing a detail of a leather jacket texture. Edgy lighting, dark brown color with visible grain. High-resolution editorial close-up style. Classic fashion staple detail."></div>
+<div class="w-24 h-24 flex-shrink-0 hairline-all border-dashed border-2 flex items-center justify-center cursor-pointer hover:bg-surface-variant transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">upload</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Col: Control Deck -->
+<div class="md:col-span-5 flex flex-col gap-8 sticky top-28 self-start">
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-widest">Category</span>
+<span class="font-mono-code text-mono-code text-primary">Outerwear</span>
+</div>
+<div class="flex justify-between items-end mb-4">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-widest">Preset</span>
+<span class="font-mono-code text-mono-code text-primary">Navy Wool Blazer</span>
+</div>
+<div class="relative">
+<textarea class="w-full h-32 bg-surface-container-lowest hairline-all p-4 font-mono-code text-mono-code focus:ring-0 focus:border-primary resize-none" placeholder="Enter generation prompt...">a navy wool blazer with gold buttons, structural shoulders, heavy fabric</textarea>
+<button class="absolute bottom-2 right-2 font-label-sm text-label-sm uppercase px-3 py-1 bg-surface-variant hover:bg-surface-container-high transition-colors">Surprise Me</button>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant hairline-b pb-2">Advanced Controls</h3>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between">
+<label class="font-label-sm text-label-sm uppercase">Quality Steps</label>
+<span class="font-mono-code text-mono-code">20</span>
+</div>
+<input class="w-full accent-primary h-1 bg-surface-variant appearance-none" max="40" min="10" type="range" value="20"/>
+<div class="flex justify-between text-[10px] uppercase tracking-widest text-on-surface-variant mt-1">
+<span>10</span>
+<span>40</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<div class="flex justify-between">
+<label class="font-label-sm text-label-sm uppercase">Prompt Strength</label>
+<span class="font-mono-code text-mono-code">0.75</span>
+</div>
+<input class="w-full accent-primary h-1 bg-surface-variant appearance-none" max="1" min="0" step="0.05" type="range" value="0.75"/>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<label class="font-label-sm text-label-sm uppercase">Seed</label>
+<input class="w-full bg-surface-container-lowest hairline-all px-3 py-2 font-mono-code text-mono-code focus:ring-0 focus:border-primary" type="text" value="8829104"/>
+</div>
+</div>
+<button class="w-full bg-secondary text-primary font-label-sm text-label-sm uppercase tracking-widest py-4 mt-auto hover:bg-secondary-fixed transition-colors relative group overflow-hidden">
+                    GENERATE
+                    <div class="absolute bottom-0 left-0 w-full h-[2px] bg-secondary-fixed-dim transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+</button>
+</div>
+</section>
+<!-- Section 2: Live Generation Theatre (ACTIVE STATE) -->
+<section class="w-full bg-tertiary-container text-on-tertiary py-16 px-margin-mobile md:px-margin-desktop flex flex-col items-center justify-center border-y border-on-tertiary-fixed-variant">
+<div class="max-w-4xl w-full flex flex-col gap-8">
+<div class="relative w-full aspect-[1.34] hairline-all border-on-tertiary-fixed-variant overflow-hidden">
+<img alt="A fashion garment mid-generation in Stable Diffusion. A mix of grainy monochromatic noise and emerging structural details of a beige trench coat. Soft ethereal glow, diffusion process aesthetic, 14/20 steps feeling. High-end artistic texture." class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnz41s0LI_nOdhUvYURY88P-tZBVwosN8EbGVMxra-oEO87A8-wzsl7qp9k_iOLSSb4Z_4TbKDQaf9ckr-8Vb_1uALZx6d5IrTEANuy6xmIsj4ncWwqfn4-z_1v1gLD6n3yZA_nB68ZcG64KVtIZN7mL_71Dr0qVqkO6YnwH78NqSzP_zjQp89jHtGfUqisDkOiAtCGMgkKPgd-qz4J0Ie5gzGDDhp26pD5wbF1ims7xnlvfFDFm-BCo8zWLiy7iwVK_1IP-FPJ8qt"/>
+<div class="absolute inset-0 bg-gradient-to-t from-tertiary-container/80 to-transparent flex items-end p-6">
+<span class="font-headline-md text-headline-md text-on-tertiary opacity-80">Generating...</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between font-mono-code text-mono-code text-primary-fixed-dim text-[11px]">
+<span>Step 14 / 20</span>
+<span>00:04s elapsed</span>
+</div>
+<div class="w-full h-1 bg-on-tertiary-fixed-variant">
+<div class="h-full bg-secondary-container w-[70%] transition-all duration-300 ease-linear relative">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-secondary rounded-full shadow-[0_0_8px_rgba(254,215,152,0.8)]"></div>
+</div>
+</div>
+</div>
+<div class="flex gap-2 overflow-x-hidden opacity-50 hover:opacity-100 transition-opacity duration-300">
+<!-- Placeholder thumbnails for timeline -->
+<div class="h-12 w-16 bg-surface-tint"></div>
+<div class="h-12 w-16 bg-surface-tint"></div>
+<div class="h-12 w-16 bg-surface-tint"></div>
+<div class="h-12 w-16 bg-surface-tint"></div>
+<div class="h-12 w-16 bg-surface-tint"></div>
+<div class="h-12 w-16 bg-surface-tint"></div>
+<div class="h-12 w-16 bg-surface-tint"></div>
+<div class="h-12 w-16 bg-surface-tint"></div>
+<div class="h-12 w-16 bg-surface-tint"></div>
+<div class="h-12 w-16 bg-surface-tint"></div>
+<div class="h-12 w-16 bg-surface-tint border border-secondary-container"></div>
+<div class="h-12 w-16 bg-surface-tint opacity-20"></div>
+<div class="h-12 w-16 bg-surface-tint opacity-20"></div>
+<div class="h-12 w-16 bg-surface-tint opacity-20"></div>
+<div class="h-12 w-16 bg-surface-tint opacity-20"></div>
+</div>
+</div>
+</section>
+<!-- Section 3: Lookbook (Simplified) -->
+<section class="px-margin-mobile md:px-margin-desktop py-16 flex flex-col gap-12">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary text-center">Lookbook Archive</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="flex flex-col gap-4 group cursor-pointer">
+<div class="hairline-all overflow-hidden bg-surface-variant aspect-[3/4]">
+<div class="w-full h-full bg-[url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&amp;w=600&amp;auto=format&amp;fit=crop')] bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="Fashion editorial portrait of a woman in a structural beige trench coat. Soft studio lighting, minimalist bone-colored background. High-fashion aesthetic, crisp details on the fabric folds. Professional magazine quality."></div>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-primary italic text-[24px]">Structured Trench</p>
+<p class="font-mono-code text-mono-code text-on-surface-variant text-[11px] mt-1">Seed: 88291 • CFG: 7.5</p>
+</div>
+</div>
+<div class="flex flex-col gap-4 group cursor-pointer md:mt-12">
+<div class="hairline-all overflow-hidden bg-surface-variant aspect-[3/4]">
+<div class="w-full h-full bg-[url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&amp;w=600&amp;auto=format&amp;fit=crop')] bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="Fashion photography of a vibrant yellow summer dress. Bright, high-key lighting, clean minimalist setting. The fabric flows elegantly. Contemporary editorial style typical of luxury brand lookbooks."></div>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-primary italic text-[24px]">Summer Drape</p>
+<p class="font-mono-code text-mono-code text-on-surface-variant text-[11px] mt-1">Seed: 44102 • CFG: 6.0</p>
+</div>
+</div>
+<div class="flex flex-col gap-4 group cursor-pointer">
+<div class="hairline-all overflow-hidden bg-surface-variant aspect-[3/4]">
+<div class="w-full h-full bg-[url('https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&amp;w=600&amp;auto=format&amp;fit=crop')] bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="Moody fashion shot of a dark silk slip dress. Low-key lighting, deep shadows, rich textures. Minimalist architectural background. High-end editorial mood, elegant and sophisticated."></div>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-primary italic text-[24px]">Midnight Silk</p>
+<p class="font-mono-code text-mono-code text-on-surface-variant text-[11px] mt-1">Seed: 10293 • CFG: 8.0</p>
+</div>
+</div>
+</div>
+<div class="flex justify-center mt-8">
+<button class="font-label-sm text-label-sm uppercase tracking-widest px-8 py-3 border border-primary text-primary hover:bg-primary hover:text-on-primary transition-colors">View All</button>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-background border-t border-outline-variant docked full-width bottom-0 flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-6 gap-4">
+<div class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">
+            STABLE DIFFUSION • CONTROLNET • LORA — FINE-TUNED ON FASHIONGEN
+        </div>
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="#">API</a>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</footer>
+</body></html>

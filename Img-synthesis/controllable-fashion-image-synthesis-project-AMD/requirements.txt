@@ -1,0 +1,80 @@
+# ============================================================
+# PyTorch Installation for AMD GPUs (ROCm)
+# ============================================================
+# IMPORTANT: Install PyTorch FIRST before other packages!
+#
+# For AMD GPUs with ROCm 6.0+:
+#   pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm6.0
+#
+# For older ROCm 5.7:
+#   pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm5.7
+#
+# Check your ROCm version with: rocm-smi --showdriverversion
+# Visit https://pytorch.org/get-started/locally/ for latest instructions
+#
+# After installing PyTorch with ROCm, run: pip install -r requirements.txt
+# ============================================================
+
+# ============================================================
+# Core Dependencies - Hugging Face Stack
+# ============================================================
+diffusers==0.26.3
+transformers==4.38.2
+accelerate==0.27.2
+peft==0.9.0
+safetensors==0.4.1
+huggingface_hub<0.25.0
+
+# ============================================================
+# Data Processing & Utilities
+# ============================================================
+numpy<2.0,>=1.24.0
+pandas>=2.0.0
+h5py>=3.9.0
+Pillow>=10.0.0
+ftfy>=6.1.0
+
+# ============================================================
+# Computer Vision
+# ============================================================
+opencv-python>=4.8.0
+scikit-image<0.23.0
+
+# ============================================================
+# Evaluation & Metrics
+# ============================================================
+clean-fid>=0.1.35
+lpips>=0.1.4
+torch-fidelity>=0.3.0
+
+# ============================================================
+# Visualization & Monitoring
+# ============================================================
+matplotlib>=3.7.0
+tensorboard>=2.15.0
+
+# ============================================================
+# Progress & Utilities
+# ============================================================
+tqdm>=4.66.0
+
+# ============================================================
+# Optional Performance Enhancement
+# ============================================================
+# xformers - For memory efficient attention (optional but recommended)
+# Note: xformers may need to be built from source for ROCm
+# If available: pip install xformers
+# Otherwise, the code will fall back to default attention
+
+# ============================================================
+# Scientific Computing
+# ============================================================
+scipy>=1.11.0
+
+# ============================================================
+# Notes:
+# ============================================================
+# - bitsandbytes is NOT included as it has poor ROCm support
+# - Training will use FP16 mixed precision on compatible AMD GPUs
+# - All paths have been updated from /kaggle/ to local paths
+# - XFormers is optional but improves memory efficiency if available

@@ -1,0 +1,19 @@
+# Web framework
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+sse-starlette==2.1.3
+python-multipart==0.0.12
+
+# Diffusion stack (compatible with the LoRA weights trained on diffusers 0.26.3)
+diffusers==0.30.3
+transformers==4.44.2
+accelerate==0.34.2
+peft==0.13.0
+safetensors==0.4.5
+huggingface_hub<0.25.0
+
+# Image / data
+Pillow>=10.0.0
+opencv-python>=4.8.0
+numpy<2.0
+h5py>=3.9.0
