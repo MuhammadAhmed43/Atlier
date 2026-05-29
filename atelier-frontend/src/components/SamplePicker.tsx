@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { fetchSamples, sampleUrl } from '../api';
+import { API_BASE, fetchSamples } from '../api';
 import type { SampleSummary } from '../types';
 
 type Props = {
@@ -54,7 +54,7 @@ export function SamplePicker({ selected, onSelect }: Props) {
   const heroUrl = useMemo(() => {
     if (selected?.uploadDataUrl) return selected.uploadDataUrl;
     const found = all.find((s) => s.id === selectedSampleId);
-    return found ? `${import.meta.env.VITE_API_BASE || 'http://localhost:8001'}${found.url}` : null;
+    return found ? `${API_BASE}${found.url}` : null;
   }, [selected, selectedSampleId, all]);
 
   const currentIdx = strip.findIndex((s) => s.id === selectedSampleId);
@@ -128,7 +128,7 @@ export function SamplePicker({ selected, onSelect }: Props) {
 
         <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
           {strip.map((s) => {
-            const url = `${import.meta.env.VITE_API_BASE || 'http://localhost:8001'}${s.url}`;
+            const url = `${API_BASE}${s.url}`;
             const isSelected = s.id === selectedSampleId && !selected?.uploadDataUrl;
             return (
               <button

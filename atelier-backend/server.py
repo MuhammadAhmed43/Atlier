@@ -186,6 +186,31 @@ app.add_middleware(
     expose_headers=["*"],
 )
 
+# Mount the Vite-built React assets if the bundle exists.
+_FRONTEND_DIST = PROJECT_ROOT / "atelier-frontend" / "dist"
+if (_FRONTEND_DIST / "assets").is_dir():
+    from fastapi.staticfiles import StaticFiles
+    app.mount(
+        "/assets",
+        StaticFiles(directory=str(_FRONTEND_DIST / "assets")),
+        name="frontend-assets",
+    )
+
+    @app.get("/favicon.ico")
+    async def _favicon_ico():
+        for name in ("favicon.ico", "favicon.svg", "vite.svg"):
+            p = _FRONTEND_DIST / name
+            if p.is_file():
+                return FileResponse(p)
+        raise HTTPException(404)
+
+    @app.get("/vite.svg")
+    async def _vite_svg():
+        p = _FRONTEND_DIST / "vite.svg"
+        if p.is_file():
+            return FileResponse(p)
+        raise HTTPException(404)
+
 
 # ─────────────────────────── Models ───────────────────────────
 
@@ -207,7 +232,12 @@ class GenerateRequest(BaseModel):
 
 @app.get("/")
 async def root():
-    """Serve the dev test page so opening localhost:8001 shows a usable UI."""
+    """Serve the production React app if built, else the dev test page.
+    Looks for the Vite-built bundle at ../atelier-frontend/dist/index.html.
+    """
+    react_index = PROJECT_ROOT / "atelier-frontend" / "dist" / "index.html"
+    if react_index.is_file():
+        return FileResponse(react_index, media_type="text/html")
     test_page = ROOT / "test.html"
     if test_page.is_file():
         return FileResponse(test_page, media_type="text/html")

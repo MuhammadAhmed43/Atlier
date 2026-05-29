@@ -1,6 +1,10 @@
 import type { GenerationParams, Health, SampleList } from './types';
 
-export const API_BASE: string = import.meta.env.VITE_API_BASE || 'http://localhost:8001';
+// When VITE_API_BASE is empty (production build served by FastAPI), use relative
+// URLs so the API is reached on the same origin as the frontend.
+// In dev (`npm run dev` on :5173) we still default to localhost:8001.
+export const API_BASE: string =
+  import.meta.env.VITE_API_BASE ?? (import.meta.env.DEV ? 'http://localhost:8001' : '');
 
 export async function fetchHealth(): Promise<Health> {
   const r = await fetch(`${API_BASE}/health`);

@@ -27,6 +27,34 @@
 
 ---
 
+## Live demo — a guided tour of the editorial interface
+
+### 1. Studio — pick a reference, write a brief
+
+<img src="docs/screenshots/01-studio.webp" alt="ATELIER Studio view — reference image, control deck, model-ready status" width="900"/>
+
+Reference image on the left, control deck on the right. Category → Preset dropdowns prefill curated prompts; the textarea accepts any custom brief. Advanced controls expose **Quality Steps**, **Prompt Strength**, and **Seed**. A pulsing gold dot in the top-right reads *"Model · Ready"* once the FastAPI backend reports `pipeline_loaded: true`.
+
+### 2. Generation theatre — watch the model think
+
+<img src="docs/screenshots/02-theatre-generating.webp" alt="ATELIER generation theatre mid-run, showing per-step latent preview at step 13/20" width="900"/>
+
+Hit Generate and the page glides into the dark theatre. The big canvas shows the **current VAE-decoded latent** at step 13 of 20 — not a placeholder, an honest decode of what the U-Net is producing right now. A progress bar fills with the elapsed-time counter ticking next to it; the timeline strip at the bottom populates with preview thumbnails every 2 steps, streamed over Server-Sent Events from the FastAPI callback. End-to-end on an RTX 4070 Laptop GPU: ~5 seconds.
+
+### 3. Reveal — three-up editorial composition
+
+<img src="docs/screenshots/03-reveal-three-up.webp" alt="Three-up reveal — reference, extracted Canny structure, and final generated image" width="900"/>
+
+When generation completes, the canvas wipes left-to-right with a clip-path mask and the final image takes its place. The three-up composition shows the original **Reference**, the extracted Canny **Structure** that ControlNet used to constrain generation, and the final **Generated** result side by side. Run metadata (seed, elapsed seconds) and a one-click Download sit below.
+
+### 4. Lookbook archive — every generation persists
+
+<img src="docs/screenshots/04-lookbook.webp" alt="Lookbook archive — generated images with serif italic captions and mono metadata" width="900"/>
+
+Every completed run auto-archives to your browser's `localStorage` (24 most recent). The prompt becomes a serif italic caption; seed, CFG, and step count read as small monospaced metadata underneath. Aspect ratio of each card matches the actual model output, so portrait inputs stay portrait.
+
+---
+
 ## Table of Contents
 
 - [Why this exists](#why-this-exists)
